@@ -1,0 +1,75 @@
+name: gpstracking
+description: "A new Flutter project."
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# Version and build number
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Location and permissions
+  geolocator: ^12.0.0
+  permission_handler: ^11.2.0
+  google_maps_flutter: ^2.13.1
+  google_places_flutter: ^2.1.1
+  flutter_polyline_points: ^3.1.0
+  firebase_core: ^4.1.1
+  provider: ^6.1.5+1
+  audioplayers: ^6.5.1
+  geofence_foreground_service: ^1.1.5
+
+
+
+
+
+  # Voice interaction
+  flutter_tts: ^4.2.3
+  speech_to_text: ^7.3.1
+
+  # Local storage
+  shared_preferences: ^2.2.2
+
+  # Maps (flutter_map - OpenStreetMap)
+  flutter_map: ^8.2.1
+  latlong2: ^0.9.1
+
+  # Notifications
+  flutter_local_notifications: ^17.2.1
+
+  # Utilities
+  #url_launcher: ^6.1.14
+  intl: ^0.18.1
+  uuid: ^4.3.3
+  path: ^1.8.3
+  path_provider: ^2.1.5
+  http: ^1.2.1
+
+  # Optional (persist / local DB, encryption, serialization)
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  flutter_secure_storage: ^9.2.4
+  json_annotation: ^4.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  build_runner: ^2.3.3
+  hive_generator: ^2.0.0
+  json_serializable: ^6.8.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/chime.mp3
+  # (Optional) add assets if you need icons/images
+  # assets:
+  #   - assets/images/
