@@ -137,7 +137,11 @@ class SpeechService {
     appState.notificationService.showNotification("👋 Scenario Ended", "Voice commands stopped");
     _textToSpeech.speak("Okay, ending voice commands.");
 
-    appState.locationService.exitGeofence();
+    // Manual exit: Reset scenario without checkout notif/TTS
+    appState.setScenarioActive(false);
+    appState.setActivePlace(null);
+    appState.setArrivalTime(null);
+    appState.setStatusText("Monitoring locations");
   }
 
   void cancelRepeatTimer() {
