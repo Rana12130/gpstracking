@@ -111,7 +111,7 @@ class LocationService {
     _positionSubscription = Geolocator.getPositionStream(
       locationSettings: const LocationSettings(
         accuracy: LocationAccuracy.best,
-        distanceFilter: 5,
+        distanceFilter: 0,  // Set to 0 for testing (every change triggers update)
       ),
     ).listen(
           (Position p) {
@@ -142,6 +142,7 @@ class LocationService {
         place.coord.latitude,
         place.coord.longitude,
       );
+      if (kDebugMode) print("Distance to ${place.name}: ${d.toStringAsFixed(2)}m");  // Debug log
 
       if (d <= AppConstants.radiusM) {
         insideAnyGeofence = true;
@@ -153,6 +154,8 @@ class LocationService {
         break;
       }
     }
+
+    if (kDebugMode) print("Inside any geofence: $insideAnyGeofence | Scenario active: ${_appState!.scenarioActive}");  // Debug
 
     // Exit geofence if we were inside but now outside all geofences
     if (_appState!.scenarioActive && !insideAnyGeofence) {
@@ -166,6 +169,7 @@ class LocationService {
             place.coord.latitude,
             place.coord.longitude,
           );
+          if (kDebugMode) print("Exit check dist to ${place.name}: ${d.toStringAsFixed(2)}m");  // Debug
           if (d <= AppConstants.exitRadiusM) {
             reallyOutside = false;
             break;
@@ -174,6 +178,7 @@ class LocationService {
       }
 
       if (reallyOutside) {
+        if (kDebugMode) print("Triggering auto checkout!");  // Debug
         _exitGeofence();
       }
     }
@@ -191,9 +196,10 @@ class LocationService {
     if (_appState!.scenarioActive && _appState!.arrivalTime != null) {
       final Duration duration = DateTime.now().difference(_appState!.arrivalTime!);
       _appState!.notificationService.showNotification(
-        "Left ${_appState!.activePlace}",
-        "You were there for ${duration.inMinutes} minutes",
+        "Auto Checkout: ${_appState!.activePlace}",
+        "You have checked out from ${_appState!.activePlace}. Stayed for ${duration.inMinutes} minutes.",
       );
+      _appState!.speechService.speak("Checked out from ${_appState!.activePlace}. Goodbye!");
     }
 
     _appState!.setScenarioActive(false);
