@@ -22,7 +22,6 @@ class Place {
       type: map['type'] as String,
     );
   }
-
   Map<String, dynamic> toMap() {
     return {
       'name': name,
